@@ -7,6 +7,7 @@
 /continous/ldsc.*
 /discrete/out
 /continous/out
-/convert_plato_output/discrete
-/convert_plato_output/continous
-
+/convert_plato_output/discrete/out
+/convert_plato_output/continous/out
+/convert_plato_output/ICA/out
+/convert_plato_output/PCA/out
