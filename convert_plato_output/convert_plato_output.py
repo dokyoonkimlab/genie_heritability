@@ -84,12 +84,13 @@ if os.path.isdir(os.path.join(input_dir, d)):
 		header = header.split('\t')
 		pval_index = header.index("Var1_Pval")
 		beta_index = header.index("Var1_beta")
+		se_index = header.index("Var1_SE")
 		if "Num_Cases" in header:
 			num_cases_index = header.index("Num_Cases")
-		if num_cases_index:
-			of.write(header[0] + '\t' + header[1] + "\tchr" + "\tpos" + "\ta1" + "\ta2" + '\t' + header[3] + '\t' + header[4] + '\t' + header[pval_index] + '\t' + header[beta_index] + "\trsq\t" + header[num_cases_index] + '\n')
+		if num_cases_index == -1:
+			of.write(header[0] + '\t' + header[1] + "\tchr" + "\tpos" + "\ta1" + "\ta2" + '\t' + header[3] + '\t' + header[4] + '\t' + header[pval_index] + '\t' + header[beta_index] + '\t' + header[se_index] + "\trsq\n")
 		else:
-			of.write(header[0] + '\t' + header[1] + "\tchr" + "\tpos" + "\ta1" + "\ta2" + '\t' + header[3] + '\t' + header[4] + '\t' + header[pval_index] + '\t' + header[beta_index] + "\trsq\n")
+			of.write(header[0] + '\t' + header[1] + "\tchr" + "\tpos" + "\ta1" + "\ta2" + '\t' + header[3] + '\t' + header[4] + '\t' + header[pval_index] + '\t' + header[beta_index] + '\t' + header[se_index] + "\trsq\t" + header[num_cases_index] + "\n")
 		for line in inf:
 			line = line.strip()
 			parts = line.split('\t')
@@ -103,8 +104,8 @@ if os.path.isdir(os.path.join(input_dir, d)):
 			if CHANGE_IDS_USING_BIM and parts[1] in snp_rsid_map:
 				snpid = snp_rsid_map[parts[1]]
 			if num_cases_index == -1:
-				of.write(parts[0] + '\t' + snpid + '\t' + chr_pos_alleles[0] + '\t' + chr_pos_alleles[1] + '\t' + var1_allele[0] + '\t' + alleles.pop() + '\t' + var1_allele[1] + '\t' + parts[4] + '\t' + parts[pval_index] + '\t' + parts[beta_index] + '\t' + snp_rsq_map[parts[1]] + '\n')
+				of.write(parts[0] + '\t' + snpid + '\t' + chr_pos_alleles[0] + '\t' + chr_pos_alleles[1] + '\t' + var1_allele[0] + '\t' + alleles.pop() + '\t' + var1_allele[1] + '\t' + parts[4] + '\t' + parts[pval_index] + '\t' + parts[beta_index] + '\t' + parts[se_index] + '\t' + snp_rsq_map[parts[1]] + '\n')
 			else:
-				of.write(parts[0] + '\t' + snpid + '\t' + chr_pos_alleles[0] + '\t' + chr_pos_alleles[1] + '\t' + var1_allele[0] + '\t' + alleles.pop() + '\t' + var1_allele[1] + '\t' + parts[4] + '\t' + parts[pval_index] + '\t' + parts[beta_index] + '\t' + snp_rsq_map[parts[1]] + '\t' + parts[num_cases_index] + '\n')
+				of.write(parts[0] + '\t' + snpid + '\t' + chr_pos_alleles[0] + '\t' + chr_pos_alleles[1] + '\t' + var1_allele[0] + '\t' + alleles.pop() + '\t' + var1_allele[1] + '\t' + parts[4] + '\t' + parts[pval_index] + '\t' + parts[beta_index] + '\t' + parts[se_index] + '\t' + snp_rsq_map[parts[1]] + '\t' + parts[num_cases_index] + '\n')
 			
 
